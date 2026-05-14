@@ -1,5 +1,6 @@
 const userModel = require("../models/user.model");
 const jwt = require("jsonwebtoken");
+const emailService = require("../services/email.service");
 
 /** 
  * - User register controller
@@ -7,7 +8,6 @@ const jwt = require("jsonwebtoken");
 */
 async function userRegisterController(req, res){
     const{email, password, name} = req.body;
-
 
     // checking if any account with this email exists
     const isExists = await userModel.findOne({
@@ -42,6 +42,8 @@ async function userRegisterController(req, res){
         },
         token:token
     })
+
+    emailService.sendRegistrationEmail(user.email, user.name);
 }
 
 /**
@@ -78,7 +80,10 @@ async function userLoginController(req, res){
             name:user.name
         },
         token: token
-    })
+    });
+
+    emailService.sendLoginEmail(user.email, user.name);
+
 }
 
 module.exports = {
