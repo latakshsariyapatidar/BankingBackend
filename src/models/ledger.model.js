@@ -30,7 +30,7 @@ const ledgerSchema = new mongoose.Schema({
     immutable: true,
     index: true,
   },
-});
+},{ timestamps: true });
 
 function preventLedgerModification() {
   throw new Error(
@@ -48,15 +48,6 @@ ledgerSchema.pre("deleteOne", preventLedgerModification);
 ledgerSchema.pre("deleteMany", preventLedgerModification);
 ledgerSchema.pre("remove", preventLedgerModification);
 
-// 2. Block save() on existing documents to prevent modifications after creation
-ledgerSchema.pre("save", function (next) {
-  if (!this.isNew) {
-    return next(
-      new Error("Ledger entries are immutable and cannot be modified."),
-    );
-  }
-  next();
-});
 
 const ledgerModel = mongoose.model("ledger", ledgerSchema);
 

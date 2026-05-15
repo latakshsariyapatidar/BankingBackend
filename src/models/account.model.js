@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const ledgerModel = require("./ledger.model");
 
 
 const accountSchema = new mongoose.Schema({
@@ -27,6 +28,46 @@ const accountSchema = new mongoose.Schema({
 
 //Compound index because we want to put indexing on both the user field and status field
 accountSchema.index({user:1, status:1});
+
+accountSchema.methods.getBalance = async function (){
+    const balanceData = await ledgerModel.aggregate([
+        {$match : {account: new mongoose.Types.ObjectId(this._id)}},
+        {
+            $group: {
+                _id: null,
+                totalDebit:{
+                    $sum:{
+                        $cond:[
+                            {$eq:["$type", "DEBITED"]},
+                            "$amount",
+                            0
+                        ]
+                    }
+                },
+                totalCredit:{
+                    $sum:{
+                        $cond:[
+                            {$eq:["$type", "CREDITED"]},
+                            "$amount",
+                            0
+                        ]
+                    }
+                }
+            }
+        },
+        {
+            $project:{
+                _id:0,
+                balance: {$subtract: ["$totalCredit", "$totalDebit"]}
+            }
+        }
+    ])
+
+    if (balanceData.length === 0){
+        return 0;
+    }
+    return balanceData[0].balance
+}
 
 
 const accountModel = mongoose.model("account", accountSchema);

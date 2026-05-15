@@ -26,6 +26,12 @@ async function authMiddleware(req, res, next) {
 }
 
 async function systemAuthMiddleware(req, res, next) {
+  if (typeof next !== "function") {
+    console.error("authMiddleware: next is not a function", { next });
+    return res
+      .status(500)
+      .json({ message: "Internal server error: middleware misconfiguration" });
+  }
   const token = req.cookies.token || req.headers.authorization?.split(" ")[1];
 
   if (!token) {

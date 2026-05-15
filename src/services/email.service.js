@@ -64,7 +64,7 @@ async function sendAccountCreationEmail(userEmail, name){
 
 async function sendTransactionEmail (userEmail, name, amount, toAccount){
     const subject = "Transaction Alert for Banking Backend Project";
-    const text = `Hi ${name},\n\nA transaction of $${amount} has been made to account ${toAccount}. If this was you, you can safely ignore this email. If you did not make this transaction, please secure your account immediately.\n\nBest regards,\nBanking Backend Team`;
+    const text = `Hi ${name},\n\nA transaction of INR${amount} has been made to account ${toAccount}. If this was you, you can safely ignore this email. If you did not make this transaction, please secure your account immediately.\n\nBest regards,\nBanking Backend Team`;
     const html = `<p>Hi ${name},</p><p>A transaction of $${amount} has been made to account ${toAccount}. If this was you, you can safely ignore this email. If you did not make this transaction, please secure your account immediately.</p><p>Best regards,<br>Banking Backend Team</p>`;
 
     await sendEmail(userEmail, subject, text, html);

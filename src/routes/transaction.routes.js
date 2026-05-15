@@ -13,10 +13,16 @@ const router = express.Router();
 router.post("/", authMiddleware.authMiddleware,transactionController.createTransaction);
 
 /**
- * POST /api/transactions/system/initial-funds
+ * POST /api/transaction/system/initial-funds
  * - Create initial funds transactions from system account
  */
 
 router.post("/system/initial-funds", authMiddleware.systemAuthMiddleware, transactionController.createInitialFundingTransaction);
+
+/**
+ * GET /api/transaction/getBalance
+ */
+
+router.get("/getBalance", authMiddleware.authMiddleware, transactionController.getBalance);
 
 module.exports = router;
