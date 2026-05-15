@@ -23,6 +23,6 @@ router.post("/system/initial-funds", authMiddleware.systemAuthMiddleware, transa
  * GET /api/transaction/getBalance
  */
 
-router.get("/getBalance", authMiddleware.authMiddleware, transactionController.getBalance);
+router.get("/getBalance/:accountId", authMiddleware.authMiddleware, transactionController.getBalance);
 
 module.exports = router;

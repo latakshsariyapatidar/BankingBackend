@@ -29,9 +29,9 @@ const accountSchema = new mongoose.Schema({
 //Compound index because we want to put indexing on both the user field and status field
 accountSchema.index({user:1, status:1});
 
-accountSchema.methods.getBalance = async function (){
+accountSchema.methods.getBalance = async function (session){
     const balanceData = await ledgerModel.aggregate([
-        {$match : {account: new mongoose.Types.ObjectId(this._id)}},
+        {$match : {account: this._id}},
         {
             $group: {
                 _id: null,
@@ -61,7 +61,7 @@ accountSchema.methods.getBalance = async function (){
                 balance: {$subtract: ["$totalCredit", "$totalDebit"]}
             }
         }
-    ])
+    ]).session(session)
 
     if (balanceData.length === 0){
         return 0;
