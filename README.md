@@ -11,7 +11,7 @@ A robust built from scratch banking backend service using Express.js and MongoDB
 
 ## Features
 
-### Already Implemented:
+### Implemented Features:
 1. **User Authentication:** 
    - Secure Registrations and Logins.
    - Password hashing and JWT generation.
@@ -23,14 +23,13 @@ A robust built from scratch banking backend service using Express.js and MongoDB
 3. **Automated Emails:** 
    - Welcome/registration emails.
    - Account login alerts.
-4. **Database Models:**
+4. **Transactions & Ledger System:** 
+   - Handle deposits, withdrawals, and account-to-account transfers.
+   - Initial system funding endpoint with System User authentication.
+   - Immutable double-entry ledger system using MongoDB Sessions and Transactions.
+5. **Database Models:**
    - Robust Mongoose schemas with compound indexing on key fields.
-
-### Upcoming Features:
-- **Transactions system:** Handle deposits, withdrawals, and account-to-account transfers.
-- **Role-based Access Control (Admin capabilities):** Managing freezing/closing of accounts.
-- **Advanced Validations & Error Handling:** Adding comprehensive global error handlers.
-- **Account Dashboard:** Endpoints to fetch account limits and statements.
+   - Ledger immutability built into Mongoose hooks.
 
 ## Project Structure
 ```text
