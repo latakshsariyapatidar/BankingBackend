@@ -62,8 +62,26 @@ async function sendAccountCreationEmail(userEmail, name){
     await sendEmail(userEmail, subject, text, html);
 }
 
+async function sendTransactionEmail (userEmail, name, amount, toAccount){
+    const subject = "Transaction Alert for Banking Backend Project";
+    const text = `Hi ${name},\n\nA transaction of $${amount} has been made to account ${toAccount}. If this was you, you can safely ignore this email. If you did not make this transaction, please secure your account immediately.\n\nBest regards,\nBanking Backend Team`;
+    const html = `<p>Hi ${name},</p><p>A transaction of $${amount} has been made to account ${toAccount}. If this was you, you can safely ignore this email. If you did not make this transaction, please secure your account immediately.</p><p>Best regards,<br>Banking Backend Team</p>`;
+
+    await sendEmail(userEmail, subject, text, html);
+}
+
+async function failedTransactionEmail (userEmail, name, amount, toAccount){
+    const subject = "Failed Transaction Alert for Banking Backend Project";
+    const text = `Hi ${name},\n\nA transaction of $${amount} to account ${toAccount} has failed. If this was you, you can safely ignore this email. If you did not attempt this transaction, please secure your account immediately.\n\nBest regards,\nBanking Backend Team`;
+    const html = `<p>Hi ${name},</p><p>A transaction of $${amount} to account ${toAccount} has failed. If this was you, you can safely ignore this email. If you did not attempt this transaction, please secure your account immediately.</p><p>Best regards,<br>Banking Backend Team</p>`;
+
+    await sendEmail(userEmail, subject, text, html);
+}
+
 module.exports = {
     sendRegistrationEmail,
     sendLoginEmail,
-    sendAccountCreationEmail
+    sendAccountCreationEmail,
+    sendTransactionEmail,
+    failedTransactionEmail
 };
