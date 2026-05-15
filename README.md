@@ -31,6 +31,10 @@ A robust built from scratch banking backend service using Express.js and MongoDB
    - Robust Mongoose schemas with compound indexing on key fields.
    - Ledger immutability built into Mongoose hooks.
 
+## API Integration Guide (Frontend)
+
+For detailed information about endpoints, payloads, headers, and authentication for frontend integration, please refer to the [Frontend Guide](frontend_guide.md).
+
 ## Project Structure
 ```text
 src/
