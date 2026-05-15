@@ -16,6 +16,11 @@ app.use(cors());
 
 
 // Using the required routes.
+app.get("/", (req, res) => {
+    res.status(200).json({
+        message: "Welcome to the Banking API. Please refer to the documentation for using the API."
+    })
+})
 app.use("/api/auth", authRouter);
 app.use("/api/accounts", accountRouter);
 app.use("/api/transaction", transactionRoutes);
