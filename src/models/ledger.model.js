@@ -32,9 +32,9 @@ const ledgerSchema = new mongoose.Schema({
   },
 },{ timestamps: true });
 
-function preventLedgerModification() {
+function preventLedgerModification() {  
   throw new Error(
-    "Ledger entries are immutable and cannot be modified or deleted.",
+    "Ledger entries are immutable and cannot be modified or deleted."
   );
 }
 

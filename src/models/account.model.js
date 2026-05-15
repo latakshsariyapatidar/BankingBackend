@@ -31,7 +31,7 @@ accountSchema.index({user:1, status:1});
 
 accountSchema.methods.getBalance = async function (session){
     const balanceData = await ledgerModel.aggregate([
-        {$match : {account: this._id}},
+        {$match : {account: new mongoose.Types.ObjectId(this._id)}},
         {
             $group: {
                 _id: null,

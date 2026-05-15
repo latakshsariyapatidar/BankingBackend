@@ -11,7 +11,7 @@ const mongoose = require("mongoose");
 async function createTransaction(req, res) {
   const { fromAccount, toAccount, amount, idempotencyKey } = req.body;
 
-  if (!fromAccount || !toAccount || !amount || !idempotencyKey) {
+  if (!fromAccount || !toAccount || amount === undefined || !idempotencyKey) {
     return res.status(400).json({
       message:
         "From account, To Account, amount and idempotencyKey is required to initiate a transaction",
@@ -42,9 +42,8 @@ async function createTransaction(req, res) {
       });
     }
     if (duplicateTransaction.status === "PENDING") {
-      const ageInMinutes =
-        (Date.now() - duplicateTransaction.createdAt) / 1000 / 60;
-
+      const ageInMinutes = ( Date.now() - duplicateTransaction.createdAt.getTime() ) / 1000 / 60;
+        
       if (ageInMinutes > 5) {
         // Treat as failed — mark it so it doesn't block retries
         await transactionModel.findByIdAndUpdate(duplicateTransaction._id, {
@@ -208,7 +207,7 @@ async function createTransaction(req, res) {
 async function createInitialFundingTransaction(req, res) {
   const { toAccount, amount, idempotencyKey } = req.body;
 
-  if (!toAccount || !amount || !idempotencyKey) {
+  if (!toAccount || amount === undefined || !idempotencyKey) {
     return res.status(400).json({
       message: "To Account, amount and idempotency key are required",
     });
