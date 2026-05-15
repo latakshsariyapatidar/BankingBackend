@@ -54,7 +54,16 @@ async function sendLoginEmail(userEmail, name){
     await sendEmail(userEmail, subject, text, html);
 }
 
+async function sendAccountCreationEmail(userEmail, name){
+    const subject = "Account Creation Alert for Banking Backend Project";
+    const text = "Hi " + name + ",\n\nWe noticed a new account was created with your email. If this was you, you can safely ignore this email. If you did not create an account, please secure your email immediately.\n\nBest regards,\nBanking Backend Team";
+    const html = `<p>Hi ${name},</p><p>We noticed a new account was created with your email. If this was you, you can safely ignore this email. If you did not create an account, please secure your email immediately.</p><p>Best regards,<br>Banking Backend Team</p>`;
+
+    await sendEmail(userEmail, subject, text, html);
+}
+
 module.exports = {
     sendRegistrationEmail,
-    sendLoginEmail
+    sendLoginEmail,
+    sendAccountCreationEmail
 };

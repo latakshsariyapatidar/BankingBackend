@@ -25,7 +25,7 @@ const accountSchema = new mongoose.Schema({
     timestamps: true
 });
 
-//Compound index because we want to put indexing on both the user  field and status field
+//Compound index because we want to put indexing on both the user field and status field
 accountSchema.index({user:1, status:1});
 
 
