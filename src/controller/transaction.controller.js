@@ -169,12 +169,12 @@ async function createTransaction(req, res) {
 
     await session.commitTransaction();
 
-    await emailService.sendTransactionEmail(
-      req.user.email,
-      req.user.name,
-      amount,
-      toAccount,
-    );
+    // await emailService.sendTransactionEmail(
+    //   req.user.email,
+    //   req.user.name,
+    //   amount,
+    //   toAccount,
+    // );
 
     return res.status(201).json({
       message: `${amount} was transfered ${senderAccount.user._id} to ${receiverAccount.user._id} successfully`,
@@ -189,12 +189,12 @@ async function createTransaction(req, res) {
       });
     }
 
-    await emailService.failedTransactionEmail(
-      req.user.email,
-      req.user.name,
-      amount,
-      toAccount,
-    );
+    // await emailService.failedTransactionEmail(
+    //   req.user.email,
+    //   req.user.name,
+    //   amount,
+    //   toAccount,
+    // );
 
     return res.status(500).json({
       message: `Transaction failed: ${err.message}`,
